@@ -23,13 +23,20 @@
 const $ = (selector) => document.querySelector(selector);
 
 function App() {
-    // 메뉴 이름을 입력받는거
-    // 입력받으려면 뭐가 가장 먼저 필요할까?
-    // 이미 입력창은 있겠지?
+    // form 태그가 자동으로 전송되는 걸 막아준다.
+    document
+    .querySelector("espresso-menu-form")
+    .addEventListener("submit", (e) => {
+        e.preventDefault();
+    });
+
     document
     .querySelector("#espresso-menu-name")
     .addEventListener("keypress", (e) => {
-        console.log(e.key);
+        if(e.key === "Enter") {
+            console.log(document
+                .querySelector("#espresso-menu-name").value);
+        }
         
         
     });
