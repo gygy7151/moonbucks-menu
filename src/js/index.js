@@ -55,6 +55,7 @@ function App() {
         };
         $("#espresso-menu-list").insertAdjacentHTML('afterbegin', menuItemTemplate(espressoMenuName));
         $("#espresso-menu-name").value = "";
+        $(".menu-count").innerHTML = "총" + document.getElementsByTagName('li').length + "개";
 
 
     }
