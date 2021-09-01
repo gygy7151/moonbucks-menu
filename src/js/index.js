@@ -2,10 +2,10 @@
 
 // TODO LIST 메뉴추가
 // - [] 에스프레소 메뉴에 새로운 메뉴가 확인 버튼을 클릭시 추가된다.
-// - [] 에스프레소 메뉴에 새로운 메뉴가 엔터키 입력으로 추가된다.
-// - [] 메뉴추가 한 후 input은 빈 값으로 초기화된다.
+// - [x] 에스프레소 메뉴에 새로운 메뉴가 엔터키 입력으로 추가된다.
+// - [x] 메뉴추가 한 후 input은 빈 값으로 초기화된다.
 // - [] 사용자 입력값이 빈 값이라면 추가되지 않는다.
-// - [] 추가되는 메뉴의 마크업은 <ul id="espresso-menu-list" class="mt-3 pl-0"></ul> 안에 삽입해야 한다.
+// - [x] 추가되는 메뉴의 마크업은 <ul id="espresso-menu-list" class="mt-3 pl-0"></ul> 안에 삽입해야 한다.
 
 
 // TODO LIST 메뉴수정
@@ -18,7 +18,7 @@
 // - [] 확인버튼을 누르면, 클릭이벤트가 발생한 가장 가까운 li 태그가 삭제된다.
 
 // TODO LIST 총 갯수 출력
-//  총 메뉴 갯수를 li태그갯수를 count하여 상단에 보여준다.
+// - [x] 총 메뉴 갯수를 li태그갯수를 count하여 상단에 보여준다.
 
 const $ = (selector) => document.querySelector(selector);
 
@@ -54,8 +54,9 @@ function App() {
           </li>`
         };
         $("#espresso-menu-list").insertAdjacentHTML('afterbegin', menuItemTemplate(espressoMenuName));
+        const menuCount = $("")
+        $(".menu-count").innerText = `총 ${menuCount}개`;
         $("#espresso-menu-name").value = "";
-        $(".menu-count").innerHTML = "총" + document.getElementsByTagName('li').length + "개";
 
 
     }
