@@ -4,7 +4,7 @@
 // - [] 에스프레소 메뉴에 새로운 메뉴가 확인 버튼을 클릭시 추가된다.
 // - [x] 에스프레소 메뉴에 새로운 메뉴가 엔터키 입력으로 추가된다.
 // - [x] 메뉴추가 한 후 input은 빈 값으로 초기화된다.
-// - [] 사용자 입력값이 빈 값이라면 추가되지 않는다.
+// - [x] 사용자 입력값이 빈 값이라면 추가되지 않는다.
 // - [x] 추가되는 메뉴의 마크업은 <ul id="espresso-menu-list" class="mt-3 pl-0"></ul> 안에 삽입해야 한다.
 
 
@@ -33,15 +33,13 @@ function App() {
     document
     .querySelector("#espresso-menu-name")
     .addEventListener("keypress", (e) => {
-        if ($("#espresso-menu-name").value === "") {
-          alert("값을 입력해주세요.");
-          return;
-        }
-
-
         if(e.key === "Enter") {
             
             const espressoMenuName = $("#espresso-menu-name").value;
+            if ($("#espresso-menu-name").value === "") {
+              alert("값을 입력해주세요.");
+              return;
+            }
             
             const menuItemTemplate = (espressoMenuName) => { return `<li class="menu-list-item d-flex items-center py-2">
             <span class="w-100 pl-2 menu-name">${espressoMenuName}</span>
@@ -60,7 +58,7 @@ function App() {
           </li>`
         };
         $("#espresso-menu-list").insertAdjacentHTML('afterbegin', menuItemTemplate(espressoMenuName));
-        const menuCount = $(".espresso-menu-list").querySelectorAll("li").length;
+        const menuCount = $("#espresso-menu-list").querySelectorAll("span").length;
         $(".menu-count").innerText = `총 ${menuCount}개`;
         $("#espresso-menu-name").value = "";
 
@@ -68,6 +66,9 @@ function App() {
     }
         
     });
+
+    document
+    .querySelector
 
 }
 
