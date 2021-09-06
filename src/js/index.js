@@ -11,7 +11,7 @@
 // TODO LIST 메뉴수정
 // - [x] 수정 버튼 클릭이벤트를 이벤트 리스너로 받는다.
 // - [x] 수정 버튼 클릭시 브라우저에서 제공하는 propmt 인터페이스 모달창이 띄워진다.
-// - [] 수정메뉴를 입력 받고, 확인버튼을 누르면 메뉴가 수정된다.
+// - [x] 수정메뉴를 입력 받고, 확인버튼을 누르면 메뉴가 수정된다.
 
 // TODO LIST 메뉴삭제
 // - [] 메뉴 삭제 버튼 클릭이벤트를 받고, 메뉴 삭제 컨펌 모달창이 뜬다
@@ -23,19 +23,53 @@
 const $ = (selector) => document.querySelector(selector);
 
 function App() {
-  // TODO LIST 메뉴수정
-  // - [] 수정 버튼 클릭이벤트를 이벤트 리스너로 받는다.
-  // - [] 수정 버튼 클릭시 브라우저에서 제공하는 propmt 인터페이스 모달창이 띄워진다.
-  // - [] 수정메뉴를 입력 받고, 확인버튼을 누르면 메뉴가 수정된다.
+  
+  const adddMenuName = () => {
+    const espressoMenuName = $("#espresso-menu-name").value;
+    if ($("#espresso-menu-name").value === "") {
+      alert("값을 입력해주세요.");
+      return;
+    }
+    
+    const menuItemTemplate = (espressoMenuName) => { return `<li class="menu-list-item d-flex items-center py-2">
+    <span class="w-100 pl-2 menu-name">${espressoMenuName}</span>
+    <button
+      type="button"
+      class="bg-gray-50 text-gray-500 text-sm mr-1 menu-edit-button"
+    >
+      수정
+    </button>
+    <button
+      type="button"
+      class="bg-gray-50 text-gray-500 text-sm menu-remove-button"
+    >
+      삭제
+    </button>
+  </li>`
+};
+$("#espresso-menu-list").insertAdjacentHTML('afterbegin', menuItemTemplate(espressoMenuName));
+const menuCount = $("#espresso-menu-list").querySelectorAll("span").length;
+$(".menu-count").innerText = `총 ${menuCount}개`;
+$("#espresso-menu-name").value = "";
+  }
 
     document
     .querySelector("#espresso-menu-list")
     .addEventListener("click", (e) => {
+      const $menuName = e.target
+        .closest("li")
+        .querySelector(".menu-name");
+
       if(e.target.classList.contains("menu-edit-button")) {
-        const menuName = e.target.closest("li").querySelector(".menu-name").innerText;
-        console.log(menuName);
-        prompt("메뉴명을 수정하세요", menuName)
+        const menuName = $menuName.innerText;
+        const updatedMenuName = prompt("메뉴명을 수정하세요", menuName);
+        $menuName.innerText = updatedMenuName;
       }
+
+      // if(e.target.classList.contains("menu-remove-button")) {
+
+      // }
+
     });
 
     document
@@ -43,35 +77,6 @@ function App() {
     .addEventListener("submit", (e) => {
         e.preventDefault();
     });
-
-    const adddMenuName = () => {
-      const espressoMenuName = $("#espresso-menu-name").value;
-      if ($("#espresso-menu-name").value === "") {
-        alert("값을 입력해주세요.");
-        return;
-      }
-      
-      const menuItemTemplate = (espressoMenuName) => { return `<li class="menu-list-item d-flex items-center py-2">
-      <span class="w-100 pl-2 menu-name">${espressoMenuName}</span>
-      <button
-        type="button"
-        class="bg-gray-50 text-gray-500 text-sm mr-1 menu-edit-button"
-      >
-        수정
-      </button>
-      <button
-        type="button"
-        class="bg-gray-50 text-gray-500 text-sm menu-remove-button"
-      >
-        삭제
-      </button>
-    </li>`
-  };
-  $("#espresso-menu-list").insertAdjacentHTML('afterbegin', menuItemTemplate(espressoMenuName));
-  const menuCount = $("#espresso-menu-list").querySelectorAll("span").length;
-  $(".menu-count").innerText = `총 ${menuCount}개`;
-  $("#espresso-menu-name").value = "";
-    }
 
     document
     .querySelector("#espresso-menu-submit-button")
