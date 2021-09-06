@@ -9,8 +9,8 @@
 
 
 // TODO LIST 메뉴수정
-// - [] 수정 버튼 클릭이벤트를 이벤트 리스너로 받는다.
-// - [] 수정 버튼 클릭시 브라우저에서 제공하는 propmt 인터페이스 모달창이 띄워진다.
+// - [x] 수정 버튼 클릭이벤트를 이벤트 리스너로 받는다.
+// - [x] 수정 버튼 클릭시 브라우저에서 제공하는 propmt 인터페이스 모달창이 띄워진다.
 // - [] 수정메뉴를 입력 받고, 확인버튼을 누르면 메뉴가 수정된다.
 
 // TODO LIST 메뉴삭제
@@ -23,7 +23,21 @@
 const $ = (selector) => document.querySelector(selector);
 
 function App() {
-    // form 태그가 자동으로 전송되는 걸 막아준다.
+  // TODO LIST 메뉴수정
+  // - [] 수정 버튼 클릭이벤트를 이벤트 리스너로 받는다.
+  // - [] 수정 버튼 클릭시 브라우저에서 제공하는 propmt 인터페이스 모달창이 띄워진다.
+  // - [] 수정메뉴를 입력 받고, 확인버튼을 누르면 메뉴가 수정된다.
+
+    document
+    .querySelector("#espresso-menu-list")
+    .addEventListener("click", (e) => {
+      if(e.target.classList.contains("menu-edit-button")) {
+        const menuName = e.target.closest("li").querySelector(".menu-name").innerText;
+        console.log(menuName);
+        prompt("메뉴명을 수정하세요", menuName)
+      }
+    });
+
     document
     .querySelector("#espresso-menu-form")
     .addEventListener("submit", (e) => {
@@ -59,7 +73,6 @@ function App() {
   $("#espresso-menu-name").value = "";
     }
 
-    // 확인버튼을 클릭하면 새로운 메뉴가 추가된다
     document
     .querySelector("#espresso-menu-submit-button")
     .addEventListener("click", (e) => {
