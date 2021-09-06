@@ -14,16 +14,23 @@
 // - [x] 수정메뉴를 입력 받고, 확인버튼을 누르면 메뉴가 수정된다.
 
 // TODO LIST 메뉴삭제
-// - [] 메뉴 삭제 버튼 클릭이벤트를 받고, 메뉴 삭제 컨펌 모달창이 뜬다
-// - [] 확인버튼을 누르면, 클릭이벤트가 발생한 가장 가까운 li 태그가 삭제된다.
+// - [x] 메뉴 삭제 버튼 클릭이벤트를 받고, 메뉴 삭제 컨펌 모달창이 뜬다
+// - [x] 확인버튼을 누르면, 클릭이벤트가 발생한 가장 가까운 li 태그가 삭제된다.
+// - [] 총 메뉴 갯수에 li태그갯수를 -1 count하여 상단에 보여준다.
 
 // TODO LIST 총 갯수 출력
 // - [x] 총 메뉴 갯수를 li태그갯수를 count하여 상단에 보여준다.
 
 const $ = (selector) => document.querySelector(selector);
 
+
 function App() {
   
+  const countMenu = () => {
+    const menuCount = $("#espresso-menu-list").querySelectorAll("span").length;
+    $(".menu-count").innerText = `총 ${menuCount}개`;
+  }
+
   const adddMenuName = () => {
     const espressoMenuName = $("#espresso-menu-name").value;
     if ($("#espresso-menu-name").value === "") {
@@ -48,8 +55,7 @@ function App() {
   </li>`
 };
 $("#espresso-menu-list").insertAdjacentHTML('afterbegin', menuItemTemplate(espressoMenuName));
-const menuCount = $("#espresso-menu-list").querySelectorAll("span").length;
-$(".menu-count").innerText = `총 ${menuCount}개`;
+countMenu();
 $("#espresso-menu-name").value = "";
   }
 
@@ -66,10 +72,12 @@ $("#espresso-menu-name").value = "";
         $menuName.innerText = updatedMenuName;
       }
 
-      // if(e.target.classList.contains("menu-remove-button")) {
-
-      // }
-
+      if(e.target.classList.contains("menu-remove-button")) {
+        if(confirm("정말 삭제하시겠습니까?")) {
+          e.target.closest("li").remove();
+          countMenu();
+        }
+      }
     });
 
     document
