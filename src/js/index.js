@@ -92,9 +92,8 @@ $("#espresso-menu-name").value = "";
 
     document
     .querySelector("#espresso-menu-submit-button")
-    .addEventListener("click", (e) => {
-      adddMenuName();
-    });
+    .addEventListener("click",adddMenuName);
+    
 
     document
     .querySelector("#espresso-menu-name")
