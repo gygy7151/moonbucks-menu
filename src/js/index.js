@@ -25,6 +25,15 @@
 
 const $ = (selector) => document.querySelector(selector);
 
+const store = {
+  setLocalStorage(menu) {
+    localStorage.setItem("menu", JSON.stringify(menu));
+  },
+  getLocalStorage() {
+    localStorage.getItem("menu");
+  },
+};
+
 
 function App() {
   
