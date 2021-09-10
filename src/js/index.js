@@ -1,3 +1,4 @@
+
 // STEP2 요구사항
 
 // TODO LIST localStorage Read & Write
@@ -19,6 +20,7 @@
 // - [] 수정버튼을 클릭시 e.target.closest메소드를 이용해 클릭한 요소를 상태변경클래스와 연결한다.
 // - [] sold-out class를 추가하여 해당 요소에 가운데줄 긋기를 통해 상태변경한다.
 // - [] 수정버튼을 재 클릭시 sold-out class를 삭제한다.
+
 
 
 const $ = (selector) => document.querySelector(selector);

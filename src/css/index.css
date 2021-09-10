@@ -46,8 +46,11 @@ ul li button {
 ul li button:hover {
   background-color: rgb(229, 231, 235);
 }
+<<<<<<< HEAD
+=======
 
 .sold-out {
   text-decoration: line-through;
   color: gray;
 }
+>>>>>>> f8d80225feace3bea9f6da6afbb7d5d6f2e03a8a
