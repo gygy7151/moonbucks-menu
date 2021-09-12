@@ -36,6 +36,8 @@ const store = {
 
 
 function App() {
+  // 상태는 변하는 데이터, 이 앱에서 변하는것이 무엇인가 - 메뉴명
+  this.menu = [];
   
   const updateMenuCount = () => {
     const menuCount = $("#espresso-menu-list").querySelectorAll("span").length;
@@ -44,6 +46,27 @@ function App() {
 
   const adddMenuName = () => {
     const espressoMenuName = $("#espresso-menu-name").value;
+    this.menu.push({ name : espressoMenuName});
+    const template = this.menu.map(item => {
+      return `<li class="menu-list-item d-flex items-center py-2">
+        <span class="w-100 pl-2 menu-name">${item.name}</span>
+        <button
+          type="button"
+          class="bg-gray-50 text-gray-500 text-sm mr-1 menu-edit-button"
+        >
+        수정
+        </button>
+        <button
+          type="button"
+          class="bg-gray-50 text-gray-500 text-sm menu-remove-button"
+        >
+        삭제
+        </button>
+      </li>`;
+    })
+    .join("");
+
+
     if ($("#espresso-menu-name").value === "") {
       alert("값을 입력해주세요.");
       return;
@@ -117,4 +140,4 @@ $("#espresso-menu-name").value = "";
 
 }
 
-App();
+const a = new App();
