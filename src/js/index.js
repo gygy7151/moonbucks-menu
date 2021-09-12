@@ -46,6 +46,12 @@ function App() {
 
   const adddMenuName = () => {
     const espressoMenuName = $("#espresso-menu-name").value;
+    
+    if ($("#espresso-menu-name").value === "") {
+      alert("값을 입력해주세요.");
+      return;
+    }
+
     this.menu.push({ name : espressoMenuName});
     const template = this.menu.map(item => {
       return `<li class="menu-list-item d-flex items-center py-2">
@@ -65,32 +71,10 @@ function App() {
       </li>`;
     })
     .join("");
-
-
-    if ($("#espresso-menu-name").value === "") {
-      alert("값을 입력해주세요.");
-      return;
-    }
     
-    const menuItemTemplate = (espressoMenuName) => { return `<li class="menu-list-item d-flex items-center py-2">
-    <span class="w-100 pl-2 menu-name">${espressoMenuName}</span>
-    <button
-      type="button"
-      class="bg-gray-50 text-gray-500 text-sm mr-1 menu-edit-button"
-    >
-      수정
-    </button>
-    <button
-      type="button"
-      class="bg-gray-50 text-gray-500 text-sm menu-remove-button"
-    >
-      삭제
-    </button>
-  </li>`
-};
-$("#espresso-menu-list").insertAdjacentHTML('afterbegin', menuItemTemplate(espressoMenuName));
-updateMenuCount();
-$("#espresso-menu-name").value = "";
+    $("#espresso-menu-list").innerHTML = template;
+    updateMenuCount();
+    $("#espresso-menu-name").value = "";
   }
 
   const updateMenuName = () => {
