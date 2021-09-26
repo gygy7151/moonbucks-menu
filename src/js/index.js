@@ -45,14 +45,15 @@ function App() {
   }
 
   const adddMenuName = () => {
-    const espressoMenuName = $("#espresso-menu-name").value;
-    
     if ($("#espresso-menu-name").value === "") {
       alert("값을 입력해주세요.");
       return;
     }
-
+    const espressoMenuName = $("#espresso-menu-name").value;
     this.menu.push({ name : espressoMenuName});
+    store.setLocalStorage(this.menu); // 상태가 변경되자마자 로컬스토리지에 저장
+    
+
     const template = this.menu.map(item => {
       return `<li class="menu-list-item d-flex items-center py-2">
         <span class="w-100 pl-2 menu-name">${item.name}</span>
