@@ -3,6 +3,9 @@
 
 // TODO LIST localStorage Read & Write
 // - [] localStorage에 데이터를 저장한다.
+//   - [x] 메뉴를 추가할 때 
+//   - [] 메뉴를 수정할 때
+//   - [] 메뉴를 삭제할 때
 // - [] localStorage에 있는 데이터를 읽어온다.
 
 // TODO LIST 카테고리별 메뉴판 관리
@@ -44,7 +47,7 @@ function App() {
     $(".menu-count").innerText = `총 ${menuCount}개`;
   }
 
-  const adddMenuName = () => {
+  const addMenuName = () => {
     if ($("#espresso-menu-name").value === "") {
       alert("값을 입력해주세요.");
       return;
@@ -54,9 +57,11 @@ function App() {
     store.setLocalStorage(this.menu); // 상태가 변경되자마자 로컬스토리지에 저장
     
 
-    const template = this.menu.map(item => {
-      return `<li class="menu-list-item d-flex items-center py-2">
-        <span class="w-100 pl-2 menu-name">${item.name}</span>
+    const template = this.menu
+    .map((menuItem, index) => {
+      return `
+      <li data-menu-id="${index}" class="menu-list-item d-flex items-center py-2">
+        <span class="w-100 pl-2 menu-name">${menuItem.name}</span>
         <button
           type="button"
           class="bg-gray-50 text-gray-500 text-sm mr-1 menu-edit-button"
@@ -78,10 +83,20 @@ function App() {
     $("#espresso-menu-name").value = "";
   }
 
-  const updateMenuName = () => {
-    const menuName = $menuName.innerText;
-    const updatedMenuName = prompt("메뉴명을 수정하세요", menuName);
+  const updateMenuName = (e) => {
+    const menuId = e.target.closest("li").dataset.menuId;
+    const $menuName = e.target.closest("li").querySelector(".menu-name");
+    const updatedMenuName = prompt("메뉴명을 수정하세요", $menuName.innerText);
+    this.menu[menuId].name = updatedMenuName;
+    store.setItem(this.menu);
     $menuName.innerText = updatedMenuName;
+  };
+
+  const removeMenuName = (e) => {
+    if (confirm("정말 삭제하시겠습니까?")) {
+      e.target.closest("li").remove();
+      updateMenuCount();
+    }
   }
 
     document
@@ -92,14 +107,11 @@ function App() {
         .querySelector(".menu-name");
 
       if(e.target.classList.contains("menu-edit-button")) {
-        updateMenuName();
+        updateMenuName(e);
       }
 
       if(e.target.classList.contains("menu-remove-button")) {
-        if(confirm("정말 삭제하시겠습니까?")) {
-          e.target.closest("li").remove();
-          updateMenuCount();
-        }
+        removeMenuName(e);
       }
     });
 
@@ -111,14 +123,14 @@ function App() {
 
     document
     .querySelector("#espresso-menu-submit-button")
-    .addEventListener("click",adddMenuName);
+    .addEventListener("click",addMenuName);
     
 
     document
     .querySelector("#espresso-menu-name")
     .addEventListener("keypress", (e) => {
         if(e.key === "Enter") {
-          adddMenuName();
+          addMenuName();
     }
         
     });
